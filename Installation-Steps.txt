@@ -1,0 +1,19 @@
+docker network ls
+docker network create expense
+
+docker build -t db:1.0.0 .
+docker run -d db:1.0.0
+docker run -itd -p 3306:3306 --name db  --network expense db:1.0.0 
+
+docker build -t be:1.0.0 .
+docker run -itd -p 8080:8080 --name be  --network expense be:1.0.0 
+
+docker build -t fe:1.0.0 .
+docker run -itd -p 80:80 --name fe  --network expense fe:1.0.0 
+
+--- Not Expose-----
+docker run -itd --name db  --network expense db:1.0.0 
+docker run -itd --name be  --network expense be:1.0.0 
+curl http://localhost:8080/transaction
+
+docker run -itd -p 80:80 --name fe  --network expense fe:1.0.0 
