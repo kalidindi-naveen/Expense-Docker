@@ -1,0 +1,29 @@
+name: expense
+version: '3.8'
+networks:
+  default:
+    name: expense
+volumes:
+  mysql:
+    external: true # docker volume create mysql
+services:
+  db:
+    image: db:1.0.0
+    container_name: db
+    volumes:
+      - source: mysql
+        target: /var/lib/mysql
+        type: volume # -v volume-name:/path/in/container
+  be:
+    image: be:1.0.0
+    container_name: be
+    command: sh -c "sleep 20 && node /opt/server/index.js"
+    depends_on:
+      - db
+  fe:
+    image: fe:1.0.0
+    container_name: fe
+    ports:
+      - 80:80
+    depends_on:
+      - be
