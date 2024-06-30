@@ -17,3 +17,13 @@ docker run -itd --name be  --network expense be:1.0.0
 curl http://localhost:8080/transaction
 
 docker run -itd -p 80:80 --name fe  --network expense fe:1.0.0 
+-----------------------------------------------------------------
+Send to Docker Hub
+docker build -t naveen2809/expense-db:1.0.0 .
+docker push naveen2809/expense-db:1.0.0
+
+docker build -t naveen2809/expense-be:1.0.0 .
+docker push naveen2809/expense-be:1.0.0
+
+docker build -t naveen2809/expense-fe:1.0.0 .
+docker push naveen2809/expense-fe:1.0.0
