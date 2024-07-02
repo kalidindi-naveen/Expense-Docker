@@ -10,6 +10,8 @@ services:
   db:
     image: naveen2809/expense-db:1.0.0
     container_name: db
+    ports:
+      - 3306:3306
     volumes:
       - source: mysql
         target: /var/lib/mysql
@@ -18,6 +20,8 @@ services:
     image: naveen2809/expense-be:1.0.0
     container_name: be
     command: sh -c "sleep 20 && node /opt/server/index.js"
+    ports:
+      - 8080:8080
     depends_on:
       - db
   fe:
